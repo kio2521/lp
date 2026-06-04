@@ -289,19 +289,24 @@
       align-items: center;
       gap: 8px;
     }
-    .p-voice__profile::before {
-      content: '';
-      display: inline-block;
+　　.p-voice__profile::before {
+      content: '👤'; /* アイコンとして人のマークを表示 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 32px;
       height: 32px;
       background: #f0f0f0;
       border-radius: 50%;
+      font-size: 16px; /* 絵文字のサイズ */
     }
     .p-voice__text {
       font-size: 15px;
       line-height: 1.8;
       color: #444;
     }
+
+    
 
     /* =========================================
        Company Section
