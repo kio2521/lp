@@ -63,23 +63,23 @@
     /* =========================================
        FV (First View)
        ========================================= */
-    .p-fv {
+　　.p-fv {
       width: 100%;
       background-color: #f0f0f0;
-      /* FV画像が入る前提なので、余白をなくして画像を全面に出す想定 */
+      position: relative;
     }
-    .p-fv__image-placeholder {
+    /* 画像を包む枠の設定 */
+    .p-fv__image-wrapper {
       width: 100%;
-      height: 550px; /* 縦長スマホのFVを想定した高さ */
-      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-weight: bold;
-      font-size: 16px;
-      border-bottom: 1px solid #eaeaea;
+      height: 550px; /* 縦長スマホのFVに最適な高さに固定 */
+      overflow: hidden; /* 万が一はみ出た画像を自動カット */
+    }
+    /* 画像自体の表示設定 */
+    .p-fv__image {
+      width: 100%;
+      height: 100%; /* 550pxの高さに引き伸ばす */
+      object-fit: cover; /* ★画像の比率を維持したまま、枠に合わせて美しく自動トリミング */
+      display: block; /* 画像の下にできる謎の数ピクセルの隙間を消す */
     }
     .p-fv__image-placeholder span {
       display: block;
