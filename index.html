@@ -1,1 +1,665 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家族で整う暮らしへ | 株式会社オキ</title>
+  <style>
+    /* =========================================
+       Reset & Base Styles
+       ========================================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #f5f5f7; /* PC閲覧時の背景（Apple風の洗練されたグレー） */
+      font-family: "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "Helvetica Neue", Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* =========================================
+       Layout
+       ========================================= */
+    .l-wrapper {
+      max-width: 430px;
+      margin: 0 auto;
+      background-color: #ffffff; /* ベースを白にしてクリーンに */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+    .l-section {
+      padding: 50px 20px;
+    }
+    .l-section--bg-light {
+      background-color: #fcfaf8; /* わずかに温かみのある背景 */
+    }
 
+    /* =========================================
+       Typography & Decor (モダンな装飾)
+       ========================================= */
+    .c-text-accent { 
+      color: #e65c00; 
+      font-weight: bold; 
+    }
+    .c-marker {
+      background: linear-gradient(transparent 60%, rgba(255, 193, 7, 0.4) 60%);
+      font-weight: bold;
+    }
+    
+    .c-title-main {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 900;
+      color: #2c2c2c;
+      margin-bottom: 30px;
+      line-height: 1.4;
+      letter-spacing: 0.05em;
+    }
+
+    /* =========================================
+       FV (First View)
+       ========================================= */
+    .p-fv {
+      width: 100%;
+      background-color: #f0f0f0;
+      /* FV画像が入る前提なので、余白をなくして画像を全面に出す想定 */
+    }
+    .p-fv__image-placeholder {
+      width: 100%;
+      height: 550px; /* 縦長スマホのFVを想定した高さ */
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-weight: bold;
+      font-size: 16px;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .p-fv__image-placeholder span {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #ccc;
+    }
+
+    /* 漫画への導入セクション */
+    .p-comic-intro {
+      background: linear-gradient(to right, #4a4a4a, #2c2c2c);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-weight: bold;
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      position: relative;
+    }
+    .p-comic-intro::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #2c2c2c transparent transparent transparent;
+      z-index: 2;
+    }
+
+    /* =========================================
+       Comic Section (連続スクロール漫画風)
+       ========================================= */
+    .p-comic {
+      background-color: #ffffff;
+      padding: 40px 15px;
+    }
+    .p-comic__container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px; /* コマの間隔 */
+    }
+    .p-comic__panel {
+      background: #fafafa;
+      border-radius: 8px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    .p-comic__img-placeholder {
+      color: #bbb;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* =========================================
+       Badge Area (モダンな権威付け実績)
+       ========================================= */
+    .p-badges {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0 30px;
+    }
+    .p-badge {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 10px 20px rgba(230, 92, 0, 0.15);
+      border: 2px solid #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-weight: 900;
+      line-height: 1.2;
+      text-align: center;
+      position: relative;
+    }
+    .p-badge::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffe066, #ff8c00);
+      z-index: -1;
+    }
+    .p-badge__small { font-size: 11px; color: #666; font-weight: normal; margin-bottom: 2px; }
+    .p-badge__large { font-size: 20px; color: #e65c00; }
+
+    /* =========================================
+       CTA Area (リッチなボタン)
+       ========================================= */
+    .p-cta {
+      padding: 40px 20px 50px;
+      text-align: center;
+      background: #fcfaf8;
+    }
+    .p-cta__micro-copy {
+      display: inline-block;
+      color: #e65c00;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .p-cta__btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff8c00 0%, #e65c00 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 20px;
+      border-radius: 50px;
+      box-shadow: 0 10px 25px rgba(230, 92, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      /* 洗練された鼓動アニメーション */
+      animation: pulse 2.5s infinite;
+    }
+    .p-cta__btn-main {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+    .p-cta__btn-sub {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-top: 4px;
+      font-weight: normal;
+    }
+    /* 光沢エフェクト */
+    .p-cta__btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shine 3s infinite;
+    }
+    .p-cta__btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 5px 15px rgba(230, 92, 0, 0.2);
+      animation: none;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    @keyframes shine {
+      0% { left: -100%; }
+      20% { left: 200%; }
+      100% { left: 200%; }
+    }
+
+    /* =========================================
+       Voice Section (体験談)
+       ========================================= */
+    .p-voice {
+      background: #ffffff;
+    }
+    .p-voice__list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .p-voice__card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 20px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    .p-voice__card::before {
+      content: "VOICE";
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: #2c2c2c;
+      color: #fff;
+      font-weight: bold;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      padding: 4px 16px;
+      border-radius: 20px;
+    }
+    .p-voice__profile {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .p-voice__profile::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: #f0f0f0;
+      border-radius: 50%;
+    }
+    .p-voice__text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    /* =========================================
+       Company Section
+       ========================================= */
+    .p-company {
+      background-color: #f5f5f7;
+      padding-bottom: 100px; /* 追尾バナーに隠れないように余白を増やす */
+    }
+    .p-company table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    .p-company th, .p-company td {
+      border-bottom: 1px solid #eee;
+      padding: 16px;
+      text-align: left;
+    }
+    .p-company tr:last-child th,
+    .p-company tr:last-child td {
+      border-bottom: none;
+    }
+    .p-company th {
+      background-color: #fafafa;
+      width: 35%;
+      font-weight: bold;
+      color: #666;
+    }
+    .p-company td {
+      color: #333;
+    }
+    .p-company__note {
+      margin-top: 20px;
+      font-size: 11px;
+      color: #aaa;
+      text-align: center;
+    }
+
+    /* =========================================
+       Floating Banner (追尾バナー)
+       ========================================= */
+    .p-floating {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 430px; /* ラッパーと同じ幅に合わせる */
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 12px 15px;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      backdrop-filter: blur(5px); /* 背景を少しぼかす */
+    }
+    .p-floating .p-cta__btn {
+      padding: 12px;
+      animation: none; /* 追尾バナーは常に視界に入るのでアニメーションをオフに */
+    }
+    .p-floating .p-cta__btn-main {
+      font-size: 18px;
+    }
+    .p-floating .p-cta__btn-sub {
+      font-size: 11px;
+    }
+
+    /* =========================================
+       Popup (3秒後ポップアップ)
+       ========================================= */
+    .p-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .p-popup.is-active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .p-popup__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .p-popup__content {
+      position: relative;
+      width: 90%;
+      max-width: 380px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      z-index: 2;
+    }
+    .p-popup.is-active .p-popup__content {
+      transform: translateY(0);
+    }
+    .p-popup__close {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      width: 36px;
+      height: 36px;
+      background: #333;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .p-popup__title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #e65c00;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .p-popup__desc {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="l-wrapper">
+
+    <!-- ===================================
+         FV (First View) - 画像エリア
+         =================================== -->
+    <header class="p-fv">
+      <div class="p-fv__image-placeholder">
+        <span>📸</span>
+        メインビジュアル画像エリア<br>
+        <small style="font-weight:normal; color:#aaa; margin-top:10px;">※テキストを含むFV画像が入ります</small>
+      </div>
+    </header>
+
+    <!-- 漫画への導入 -->
+    <div class="p-comic-intro">
+      さかのぼること1か月前…
+    </div>
+
+    <!-- ===================================
+         Comic Section (漫画) - 画像エリア
+         =================================== -->
+    <section class="p-comic">
+      <div class="p-comic__container">
+        
+        <!-- コマ1 -->
+        <div class="p-comic__panel">
+          <div class="p-comic__img-placeholder">漫画 1コマ目 画像</div>
+        </div>
+
+        <!-- コマ2 -->
+        <div class="p-comic__panel">
+          <div class="p-comic__img-placeholder">漫画 2コマ目 画像</div>
+        </div>
+
+        <!-- コマ3 -->
+        <div class="p-comic__panel">
+          <div class="p-comic__img-placeholder">漫画 3コマ目 画像</div>
+        </div>
+
+        <!-- コマ4 -->
+        <div class="p-comic__panel">
+          <div class="p-comic__img-placeholder">漫画 4コマ目 画像</div>
+        </div>
+
+        <!-- コマ5 -->
+        <div class="p-comic__panel">
+          <div class="p-comic__img-placeholder">漫画 5コマ目 画像</div>
+        </div>
+
+        <!-- コマ6 -->
+        <div class="p-comic__panel">
+          <div class="p-comic__img-placeholder">漫画 6コマ目 画像</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================
+         Badges & CTA (1)
+         =================================== -->
+    <div class="p-cta">
+      <!-- 権威付けバッジ -->
+      <div class="p-badges">
+        <div class="p-badge">
+          <span class="p-badge__small">ご相談実績</span>
+          <span class="p-badge__large">多数!</span>
+        </div>
+        <div class="p-badge">
+          <span class="p-badge__small">家族の笑顔</span>
+          <span class="p-badge__large">No.1</span>
+        </div>
+        <div class="p-badge">
+          <span class="p-badge__small">満足度</span>
+          <span class="p-badge__large">98%</span>
+        </div>
+      </div>
+
+      <p class="p-cta__micro-copy">
+        まずはオンラインで話を聞くだけでもOK！
+      </p>
+      <a href="#" class="p-cta__btn">
+        <span class="p-cta__btn-main">無料で詳しく聞いてみる</span>
+        <span class="p-cta__btn-sub">専門家が暮らしの改善をサポートします</span>
+      </a>
+    </div>
+
+    <!-- ===================================
+         Voice Section (体験談)
+         =================================== -->
+    <section class="l-section p-voice">
+      <h2 class="c-title-main">
+        うれしいお声が<br>たくさん届いています
+      </h2>
+
+      <div class="p-voice__list">
+        <div class="p-voice__card">
+          <div class="p-voice__profile">40代女性 / 子ども2人</div>
+          <p class="p-voice__text">
+            以前は朝から探し物で怒ってばかりでした。<br>
+            サポートを受けてからは、<span class="c-text-accent c-marker">子どもが自分で準備や片付けができる</span>状態になり、イライラが激減！心に余裕が生まれました。
+          </p>
+        </div>
+
+        <div class="p-voice__card">
+          <div class="p-voice__profile">40代女性 / 共働き家庭</div>
+          <p class="p-voice__text">
+            「私がいなきゃ家が回らない」とストレスを抱えていました。<br>
+            <span class="c-text-accent c-marker">夫に毎回指示しなくても共有できる仕組み</span>を作ってもらえたのが一番の収穫です。
+          </p>
+        </div>
+
+        <div class="p-voice__card">
+          <div class="p-voice__profile">30代後半女性 / 小学生の母</div>
+          <p class="p-voice__text">
+            片付けてもすぐ散らかる堂々巡りから抜け出せました！<br>
+            「自分だけが管理する家」ではなく、<span class="c-text-accent c-marker">家族全員が使いやすい動線</span>になったことで、毎日が快適です。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================
+         CTA (2)
+         =================================== -->
+    <div class="p-cta l-section--bg-light">
+      <h2 class="c-title-main" style="margin-bottom: 20px;">
+        さぁ、今すぐ始めよう
+      </h2>
+      <p class="p-cta__micro-copy">
+        あなたの暮らしをしっかりサポート！
+      </p>
+      <a href="#" class="p-cta__btn">
+        <span class="p-cta__btn-main">無料で詳しく聞いてみる</span>
+        <span class="p-cta__btn-sub">専門家が暮らしの改善をサポートします</span>
+      </a>
+    </div>
+
+    <!-- ===================================
+         Company Section (会社概要)
+         =================================== -->
+    <section class="l-section p-company">
+      <h2 class="c-title-main" style="font-size: 20px; margin-bottom: 20px;">運営会社</h2>
+      <table>
+        <tr>
+          <th>会社名</th>
+          <td>株式会社オキ</td>
+        </tr>
+        <tr>
+          <th>所在地</th>
+          <td>〒100-0005<br>東京都千代田区丸の内1-1-1<br>オキビル 10F</td>
+        </tr>
+        <tr>
+          <th>事業内容</th>
+          <td>Web制作<br>マーケティング事業</td>
+        </tr>
+      </table>
+      <p class="p-company__note">※本ページはポートフォリオ用のLPたたき台（架空情報を含む）です。</p>
+    </section>
+
+    <!-- ===================================
+         Floating Banner (追尾バナー)
+         =================================== -->
+    <div class="p-floating">
+      <a href="#" class="p-cta__btn">
+        <span class="p-cta__btn-main">無料で詳しく聞いてみる</span>
+        <span class="p-cta__btn-sub">専門家が暮らしの改善をサポートします</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ===================================
+       Popup Modal (3秒後ポップアップ)
+       =================================== -->
+  <div class="p-popup" id="js-popup">
+    <div class="p-popup__overlay" id="js-popup-overlay"></div>
+    <div class="p-popup__content">
+      <div class="p-popup__close" id="js-popup-close">×</div>
+      <h3 class="p-popup__title">ちょっと待って！<br>今なら無料相談受付中</h3>
+      <p class="p-popup__desc">
+        家族で整う暮らしを始めるチャンス。<br>
+        まずは専門家に話を聞いてみませんか？
+      </p>
+      <a href="#" class="p-cta__btn">
+        <span class="p-cta__btn-main">無料で詳しく聞いてみる</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript: 3秒後にポップアップを表示する処理
+    document.addEventListener('DOMContentLoaded', function() {
+      const popup = document.getElementById('js-popup');
+      const closeBtn = document.getElementById('js-popup-close');
+      const overlay = document.getElementById('js-popup-overlay');
+
+      // 3秒（3000ミリ秒）後にクラスを付与して表示
+      setTimeout(function() {
+        popup.classList.add('is-active');
+      }, 3000);
+
+      // ポップアップを閉じる関数
+      function closePopup() {
+        popup.classList.remove('is-active');
+      }
+
+      // 閉じるボタンか背景のオーバーレイをクリックしたら閉じる
+      closeBtn.addEventListener('click', closePopup);
+      overlay.addEventListener('click', closePopup);
+    });
+  </script>
+
+</body>
+</html>
