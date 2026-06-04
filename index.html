@@ -472,9 +472,9 @@
       <div class="p-comic__container">
         
         <!-- コマ1 -->
-        <div class="p-comic__panel">
-          <div class="p-comic__img-placeholder">漫画 1コマ目 画像</div>
-        </div>
+       <div class="p-comic__panel" style="height: auto; box-shadow: none;">
+         <img src="1.png" alt="漫画 1コマ目" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+       </div>
 
         <!-- コマ2 -->
         <div class="p-comic__panel">
@@ -646,7 +646,7 @@
       // 3秒（3000ミリ秒）後にクラスを付与して表示
       setTimeout(function() {
         popup.classList.add('is-active');
-      }, 3000);
+      }, 9000);
 
       // ポップアップを閉じる関数
       function closePopup() {
